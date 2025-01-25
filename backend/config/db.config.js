@@ -2,14 +2,12 @@ import mongoose from 'mongoose';
 import { configDotenv } from 'dotenv';
 configDotenv();
 
-export const connectToDatabase = async () => {
+export const connectToDatabase = () => {
   try {
-    mongoose.connect(process.env.mongo_url).catch((err) => {
-      console.error(err.message);
-    }).then(() => {
+    mongoose.connect(process.env.MONGO_URL).then(() => {
       console.log('Connected to MongoDB');
     }).catch((err) => {
-      console.log(err)
+      console.log(err);
     })
   } catch (error) {
     console.error(error.message);

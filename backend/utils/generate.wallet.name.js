@@ -1,3 +1,4 @@
+
 export const generateWalletName = () => {
   const length = 16;
   const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';

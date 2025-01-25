@@ -1,9 +1,7 @@
 import crypto from 'crypto';
 
-
-const iv = crypto.randomBytes(16);
-
 export const encryptPassword = (password, secretKey) => {
+  const iv = crypto.randomBytes(16);
   const key = crypto.scryptSync(secretKey, 'salt', 32);
   const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
   let encrypted = cipher.update(password, 'utf8', 'hex');
@@ -18,4 +16,8 @@ export const decryptPassword = (encryptedPassword, secretKey) => {
   let decrypted = decipher.update(encrypted, 'hex', 'utf8');
   decrypted += decipher.final('utf8');
   return decrypted;
+}
+export const compareEncryptedStrings = (rawString, encryptedString, secretKey) => {
+  const decryptedString = decryptPassword(encryptedString, secretKey);
+  return decryptedString === rawString;
 }
